@@ -1,6 +1,6 @@
 ### Preview Generator
 
-Generates preview for given HTML
+Generate preview for given HTML
 
 ### Installation
 

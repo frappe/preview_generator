@@ -1,9 +1,9 @@
 [project]
 name = "preview_generator"
 authors = [
-    { name = "Frappe", email = "suraj@frappe.io"}
+    { name = "Frappe Technologies", email = "suraj@frappe.io"}
 ]
-description = "Generates preview for given HTML"
+description = "Generate preview for given HTML"
 requires-python = ">=3.10"
 readme = "README.md"
 dynamic = ["version"]

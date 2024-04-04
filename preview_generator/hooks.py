@@ -1,7 +1,7 @@
 app_name = "preview_generator"
 app_title = "Preview Generator"
-app_publisher = "Frappe"
-app_description = "Generates preview for given HTML"
+app_publisher = "Frappe Technologies"
+app_description = "Generate preview for given HTML"
 app_email = "suraj@frappe.io"
 app_license = "mit"
 # required_apps = []
