@@ -12,21 +12,16 @@ bench get-app $URL_OF_THIS_REPO --branch develop
 bench install-app preview_generator
 ```
 
-### Contributing
+### Usage
 
-This app uses `pre-commit` for code formatting and linting. Please [install pre-commit](https://pre-commit.com/#installation) and enable it for this repository:
+Make a POST request to `/api/method/preview_generator.api.generate_preview` with the following parameters:
 
-```bash
-cd apps/preview_generator
-pre-commit install
+```json
+{
+	"html": "<html><body><h1>Hello World</h1></body></html>", // Your HTML
+}
 ```
-
-Pre-commit is configured to use the following tools for checking and formatting your code:
-
-- ruff
-- eslint
-- prettier
-- pyupgrade
+This will return a preview image.
 
 ### License
 
