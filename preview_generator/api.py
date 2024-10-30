@@ -21,10 +21,12 @@ def generate_preview(html):
 
 @frappe.whitelist(allow_guest=True)
 @rate_limit(limit=60, seconds=60)
-def generate_preview_from_url(url: str, wait_for: int = 0):
+def generate_preview_from_url(url: str, wait_for: int = 0, headers: dict = None):
 	with sync_playwright() as playwright:
 		browser = playwright.chromium.launch()
-		context = browser.new_context()
+		context = browser.new_context(
+			extra_http_headers=headers or {}
+		)
 		page = context.new_page()
 		page.goto(url)
 		page.wait_for_load_state('networkidle')
