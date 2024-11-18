@@ -1,6 +1,6 @@
 # Preview Generator
 
-Generate preview images of URLs or HTML content.
+Generate a rendered HTML preview image from a website URL or HTML snippet.
 
 ## Installation
 
@@ -27,12 +27,13 @@ Make a POST request to `/api/method/preview_generator.api.generate_preview_from_
 
 ```js
 {
-	"url": "https://www.example.com", // The URL you want to generate a preview of
+	"url": "https://www.example.com", // URL of the webpage for which you want to genetate a preview 
 	"wait_for": 5000, // In milliseconds, optional, default is 0
 	"headers": {}, // Optional, headers to be provided when visiting the URL
 	"format": "webp" // Optional, default is "jpg"
 }
 ```
+**Note:** The URL passed should be publicly accessible.
 
 ### Generate Preview of HTML Content
 
