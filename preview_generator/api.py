@@ -1,11 +1,18 @@
-import frappe
-from playwright.sync_api import sync_playwright
-from frappe.rate_limiter import rate_limit
 import html as html_parser
+import io
+
+import frappe
+from frappe.rate_limiter import rate_limit
+from PIL import Image
+from playwright.sync_api import sync_playwright
+
 
 @frappe.whitelist(allow_guest=True)
 @rate_limit(limit=60, seconds=60)
-def generate_preview(html):
+def generate_preview(html: str, format: str = "jpg") -> None:
+	if format not in ["jpg", "webp", "jpeg"]:
+		frappe.throw("Invalid format. Supported formats are jpg, jpeg and webp")
+
 	with sync_playwright() as playwright:
 		browser = playwright.chromium.launch()
 		context = browser.new_context()
@@ -13,15 +20,23 @@ def generate_preview(html):
 		page.set_content(html_parser.unescape(html))
 		page.wait_for_load_state('networkidle')
 		image = page.screenshot(type='jpeg', quality=30)
-		frappe.local.response.filename = 'preview.jpg'
-		frappe.local.response.filecontent = image
-		frappe.local.response.type = "download"
+
+		if format == "webp":
+			image_stream = io.BytesIO(image)
+			img = Image.open(image_stream)
+			output_stream = io.BytesIO()
+			img.save(output_stream, format="WEBP")
+			image = output_stream.getvalue()
+			output_stream.close()
+			image_stream.close()
+
+		generate_image_response(image, format)
 		context.close()
 
 
 @frappe.whitelist(allow_guest=True)
 @rate_limit(limit=60, seconds=60)
-def generate_preview_from_url(url: str, wait_for: int = 0, headers: dict = None):
+def generate_preview_from_url(url: str, wait_for: int = 0, headers: dict = None) -> None:
 	with sync_playwright() as playwright:
 		browser = playwright.chromium.launch()
 		context = browser.new_context(
@@ -33,7 +48,10 @@ def generate_preview_from_url(url: str, wait_for: int = 0, headers: dict = None)
 		if wait_for:
 			page.wait_for_timeout(wait_for)
 		image = page.screenshot(type='jpeg', quality=30)
-		frappe.local.response.filename = 'preview.jpg'
-		frappe.local.response.filecontent = image
-		frappe.local.response.type = "download"
+		generate_image_response(image, "jpg")
 		context.close()
+
+def generate_image_response(image_content, image_format):
+	frappe.local.response.filename = f"preview.{image_format}"
+	frappe.local.response.filecontent = image_content
+	frappe.local.response.type = "download"
