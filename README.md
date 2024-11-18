@@ -29,7 +29,8 @@ Make a POST request to `/api/method/preview_generator.api.generate_preview_from_
 {
 	"url": "https://www.example.com", // The URL you want to generate a preview of
 	"wait_for": 5000, // In milliseconds, optional, default is 0
-	"headers": {} // Optional, headers to be provided when visiting the URL
+	"headers": {}, // Optional, headers to be provided when visiting the URL
+	"format": "webp" // Optional, default is "jpg"
 }
 ```
 
