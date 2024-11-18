@@ -25,7 +25,7 @@ playwright install
 
 Make a POST request to `/api/method/preview_generator.api.generate_preview_from_url` with the following parameters:
 
-```json
+```js
 {
 	"url": "https://www.example.com", // The URL you want to generate a preview of
 	"wait_for": 5000, // In milliseconds, optional, default is 0
@@ -38,7 +38,7 @@ Make a POST request to `/api/method/preview_generator.api.generate_preview_from_
 
 Make a POST request to `/api/method/preview_generator.api.generate_preview` with the following parameters:
 
-```json
+```js
 {
 	"html": "<html><body><h1>Hello World</h1></body></html>", // Your HTML content
 	"format": "webp" // Optional, default is "jpg"
