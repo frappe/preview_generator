@@ -17,7 +17,11 @@ def generate_preview(html: str, format: str = "jpg") -> None:
 		context = browser.new_context()
 		page = context.new_page()
 		page.set_content(html_parser.unescape(html))
-		page.wait_for_load_state('networkidle')
+		try:
+			page.wait_for_load_state('networkidle', timeout=10000)
+		except TimeoutError:
+			pass
+
 		image = page.screenshot(type='jpeg', quality=30)
 
 		if format == "webp":
