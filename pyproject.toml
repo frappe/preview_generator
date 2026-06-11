@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "preview_generator"
+version = "0.0.1"
+authors = [{ name = "Suraj Shetty", email = "suraj@frappe.io" }]
+# Rendering is delegated to the framework's built-in headless Chromium
+# (frappe.utils.preview), so there are no third-party runtime dependencies.
+dependencies = []
+
+# Built-in headless-Chromium preview rendering landed in Frappe v16.
+[tool.bench.frappe-dependencies]
+frappe = ">=16.0.0"
+
+[tool.setuptools.packages.find]
+where = ["."]
