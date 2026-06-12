@@ -1,5 +1,8 @@
 # Preview Generator
 
+> [!WARNING]
+> **Deprecated.** On Frappe v16+, use `frappe.utils.preview` (`get_preview_from_html` / `get_preview_from_url`) directly instead of this app/service. See #4.
+
 Generate a rendered HTML preview image from a website URL or HTML snippet.
 
 ## Installation
